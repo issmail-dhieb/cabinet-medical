@@ -1,0 +1,4 @@
+target/
+cabinet_medical.db
+*.db-journal
+.vscode/
