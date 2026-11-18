@@ -160,6 +160,16 @@ public class MainView {
                 creerTexte(section.getMessageEnPreparation(), "sous-titre"));
     }
 
+    /**
+     * Affiche l'interface complète d'une section (par exemple la section Médecins).
+     * Le contenu occupe toute la hauteur disponible ; la page défile seulement
+     * si la fenêtre est trop petite pour son contenu.
+     */
+    public void afficherContenu(Parent contenu) {
+        VBox.setVgrow(contenu, Priority.ALWAYS);
+        corps.getChildren().setAll(contenu);
+    }
+
     // ---------- Construction ----------
 
     private Button creerBoutonNavigation(Section section) {
@@ -228,6 +238,7 @@ public class MainView {
         corps.setPadding(new Insets(8, 16, 8, 0));
         ScrollPane defilement = new ScrollPane(corps);
         defilement.setFitToWidth(true);
+        defilement.setFitToHeight(true);
         defilement.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         VBox.setVgrow(defilement, Priority.ALWAYS);
 

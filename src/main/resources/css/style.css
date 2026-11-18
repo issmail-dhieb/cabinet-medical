@@ -123,6 +123,76 @@
     -fx-padding: 7 9 7 9;
 }
 
+/* Champ qu'on ne peut plus modifier (matricule d'un médecin existant) */
+.text-field.champ-verrouille {
+    -fx-background-color: #ECE7DA;
+    -fx-text-fill: #5B5F58;
+}
+
+.text-field.champ-verrouille:focused {
+    -fx-background-color: #ECE7DA;
+}
+
+/* ---------- Liste déroulante : mêmes angles droits et mêmes filets ---------- */
+.combo-box {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #7D8379;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-padding: 0;
+}
+
+.combo-box:focused {
+    -fx-background-color: #FFFDF8;
+    -fx-border-color: #0B6B4D;
+    -fx-border-width: 2;
+}
+
+.combo-box > .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #17252B;
+    -fx-font-size: 14px;
+    -fx-padding: 8 10 8 10;
+}
+
+.combo-box > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0 12 0 8;
+}
+
+.combo-box > .arrow-button > .arrow {
+    -fx-background-color: #17252B;
+}
+
+.combo-box-popup > .list-view {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #7D8379;
+    -fx-border-width: 1;
+    -fx-padding: 0;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #FFFDF8;
+    -fx-text-fill: #17252B;
+    -fx-font-size: 14px;
+    -fx-padding: 8 10 8 10;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: #E9E4D6;
+    -fx-text-fill: #17252B;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #E3F0EA;
+    -fx-text-fill: #17252B;
+}
+
 /* ---------- Boutons : secondaire par défaut, principal en vert pharmacie ---------- */
 .button {
     -fx-background-color: transparent;
@@ -169,6 +239,24 @@
 }
 
 .bouton-principal:focused {
+    -fx-border-color: #17252B;
+}
+
+/* Action destructive : contour rouge, jamais plein */
+.bouton-danger {
+    -fx-border-color: #A8231B;
+    -fx-text-fill: #A8231B;
+}
+
+.bouton-danger:hover {
+    -fx-background-color: #FBE9E6;
+}
+
+.bouton-danger:pressed {
+    -fx-background-color: #F5D5D0;
+}
+
+.bouton-danger:focused {
     -fx-border-color: #17252B;
 }
 

@@ -10,6 +10,7 @@ import com.cabinetmedical.service.RendezVousService;
 import com.cabinetmedical.service.ServiceException;
 import com.cabinetmedical.view.MainView;
 import com.cabinetmedical.view.MainView.Section;
+import com.cabinetmedical.view.MedecinView;
 import java.util.List;
 import java.util.Optional;
 import javafx.scene.Scene;
@@ -30,6 +31,8 @@ public class MainController {
     private final Scene scene;
     private final MainView vue;
     private final Runnable apresDeconnexion;
+    private final MedecinView vueMedecins;
+    private final MedecinController controleurMedecins;
 
     public MainController(AuthService authService, MedecinService medecinService,
                           PatientService patientService, RendezVousService rendezVousService,
@@ -41,6 +44,8 @@ public class MainController {
         this.scene = scene;
         this.vue = vue;
         this.apresDeconnexion = apresDeconnexion;
+        this.vueMedecins = new MedecinView();
+        this.controleurMedecins = new MedecinController(medecinService, vueMedecins);
         brancherActions();
     }
 
@@ -65,10 +70,13 @@ public class MainController {
 
     private void afficherSection(Section section) {
         vue.marquerSectionActive(section);
-        if (section == Section.TABLEAU_DE_BORD) {
-            chargerTableauDeBord();
-        } else {
-            vue.afficherSectionEnPreparation(section);
+        switch (section) {
+            case TABLEAU_DE_BORD -> chargerTableauDeBord();
+            case MEDECINS -> {
+                controleurMedecins.ouvrir();
+                vue.afficherContenu(vueMedecins.getRacine());
+            }
+            default -> vue.afficherSectionEnPreparation(section);
         }
     }
 
