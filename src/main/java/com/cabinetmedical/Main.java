@@ -1,75 +1,77 @@
 // src/main/java/com/cabinetmedical/Main.java
 package com.cabinetmedical;
 
+import com.cabinetmedical.controller.LoginController;
+import com.cabinetmedical.dao.UtilisateurDAO;
 import com.cabinetmedical.database.DatabaseConnection;
 import com.cabinetmedical.database.DatabaseInitializer;
+import com.cabinetmedical.service.AuthService;
+import com.cabinetmedical.util.AlertUtil;
+import com.cabinetmedical.view.LoginView;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
  * Point d'entrée de l'application.
- * Phase 2 : en plus de la fenêtre simple, initialise la base de données
- * et affiche son emplacement pour vérifier qu'elle est bien créée.
- * (Cet affichage temporaire sera remplacé dans les phases d'interface.)
+ * Phase 8 : initialise la base de données, crée l'unique AuthService partagé,
+ * puis affiche l'écran de connexion (ou de création du compte au premier lancement).
  */
 public class Main extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final String FEUILLE_DE_STYLE = "/css/style.css";
 
     @Override
     public void start(Stage stage) {
-        Label titre = new Label("Cabinet Médical");
-        titre.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        Label sousTitre = new Label("Projet initialisé : la fenêtre JavaFX s'affiche correctement.");
-
-        Label versions = new Label(
-                "Java " + System.getProperty("java.version")
-                        + "  |  JavaFX " + System.getProperty("javafx.version"));
-
         DatabaseConnection connexion = new DatabaseConnection();
-        Label etatBase = creerLabelCentre(initialiserBaseDeDonnees(connexion));
-        Label cheminBase = creerLabelCentre("Fichier : " + connexion.getFichier());
+        if (!initialiserBaseDeDonnees(connexion)) {
+            Platform.exit();
+            return;
+        }
 
-        VBox racine = new VBox(12, titre, sousTitre, versions, etatBase, cheminBase);
-        racine.setAlignment(Pos.CENTER);
-        racine.setPadding(new Insets(24));
+        AuthService authService = new AuthService(new UtilisateurDAO(connexion));
+        LoginView vueConnexion = new LoginView();
+        Scene scene = new Scene(vueConnexion.getRacine(), 1000, 650);
+        ajouterFeuilleDeStyle(scene);
 
-        Scene scene = new Scene(racine, 800, 500);
+        LoginController controleur = new LoginController(authService, scene, vueConnexion);
+        if (!controleur.demarrer()) {
+            Platform.exit();
+            return;
+        }
 
-        stage.setTitle("Cabinet Médical");
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
+        stage.setTitle("Cabinet médical");
+        stage.setMinWidth(900);
+        stage.setMinHeight(600);
         stage.setScene(scene);
         stage.show();
     }
 
-    private String initialiserBaseDeDonnees(DatabaseConnection connexion) {
-        DatabaseInitializer initialiseur = new DatabaseInitializer(connexion);
+    private boolean initialiserBaseDeDonnees(DatabaseConnection connexion) {
         try {
-            initialiseur.initialiser();
-            return "Base de données prête. Tables : " + String.join(", ", initialiseur.listerTables());
+            new DatabaseInitializer(connexion).initialiser();
+            return true;
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Impossible d'initialiser la base de données", e);
-            return "Erreur : la base de données n'a pas pu être initialisée.";
+            AlertUtil.afficherErreur("Base de données indisponible",
+                    "La base de données n'a pas pu être ouverte.\nFichier : " + connexion.getFichier());
+            return false;
         }
     }
 
-    private Label creerLabelCentre(String texte) {
-        Label label = new Label(texte);
-        label.setWrapText(true);
-        label.setMaxWidth(700);
-        label.setTextAlignment(TextAlignment.CENTER);
-        return label;
+    private void ajouterFeuilleDeStyle(Scene scene) {
+        URL feuille = Main.class.getResource(FEUILLE_DE_STYLE);
+        if (feuille == null) {
+            LOGGER.log(Level.WARNING, "Feuille de style introuvable : {0}", FEUILLE_DE_STYLE);
+        } else {
+            scene.getStylesheets().add(feuille.toExternalForm());
+        }
     }
 
     public static void main(String[] args) {

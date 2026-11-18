@@ -1,0 +1,158 @@
+/* src/main/resources/css/style.css */
+
+/* ---------- Base : papier et encre ---------- */
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-background-color: #17252B;
+    -fx-focus-color: #0B6B4D;
+    -fx-faint-focus-color: transparent;
+}
+
+.racine-ecran {
+    -fx-background-color: #F5F2EB;
+}
+
+.zone-formulaire {
+    -fx-background-color: #F5F2EB;
+    -fx-padding: 24;
+}
+
+/* ---------- Panneau de marque ---------- */
+.panneau-marque {
+    -fx-background-color: #17252B;
+}
+
+.marque-nom {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 34px;
+    -fx-text-fill: #F5F2EB;
+}
+
+.filet-marque {
+    -fx-background-color: #0B6B4D;
+}
+
+.marque-slogan {
+    -fx-font-size: 14px;
+    -fx-text-fill: #B8C2BF;
+}
+
+/* ---------- Textes ---------- */
+.titre-page {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 24px;
+    -fx-text-fill: #17252B;
+}
+
+.sous-titre {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5B5F58;
+}
+
+.etiquette-champ {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5B5F58;
+}
+
+.texte-aide {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5B5F58;
+}
+
+.regle {
+    -fx-background-color: #CFC8B8;
+}
+
+/* ---------- Messages ---------- */
+.message {
+    -fx-font-size: 13px;
+    -fx-padding: 8 12 8 12;
+    -fx-border-width: 0 0 0 3;
+}
+
+.message-erreur {
+    -fx-background-color: #FBE9E6;
+    -fx-border-color: #A8231B;
+    -fx-text-fill: #A8231B;
+}
+
+.message-info {
+    -fx-background-color: #E3F0EA;
+    -fx-border-color: #0B6B4D;
+    -fx-text-fill: #0B6B4D;
+}
+
+/* ---------- Champs de saisie : angles droits, filet fin ---------- */
+.text-field,
+.password-field {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #7D8379;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-padding: 8 10 8 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #17252B;
+    -fx-prompt-text-fill: #5B5F58;
+    -fx-highlight-fill: #BFD9CF;
+    -fx-highlight-text-fill: #17252B;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-background-color: #FFFDF8;
+    -fx-border-color: #0B6B4D;
+    -fx-border-width: 2;
+    -fx-padding: 7 9 7 9;
+}
+
+/* ---------- Boutons : secondaire par défaut, principal en vert pharmacie ---------- */
+.button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #17252B;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-text-fill: #17252B;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 9 20 9 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #E9E4D6;
+}
+
+.button:pressed {
+    -fx-background-color: #DDD6C4;
+}
+
+.button:focused {
+    -fx-border-color: #0B6B4D;
+    -fx-border-width: 2;
+    -fx-padding: 8 19 8 19;
+}
+
+.bouton-principal {
+    -fx-background-color: #0B6B4D;
+    -fx-border-color: #0B6B4D;
+    -fx-text-fill: #FFFFFF;
+}
+
+.bouton-principal:hover {
+    -fx-background-color: #085540;
+    -fx-border-color: #085540;
+}
+
+.bouton-principal:pressed {
+    -fx-background-color: #06432F;
+    -fx-border-color: #06432F;
+}
+
+.bouton-principal:focused {
+    -fx-border-color: #17252B;
+}
