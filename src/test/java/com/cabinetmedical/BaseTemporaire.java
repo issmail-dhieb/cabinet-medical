@@ -40,20 +40,40 @@ public final class BaseTemporaire {
                                          String dateHeure, String statut) throws SQLException {
         String requetePatient = "INSERT OR IGNORE INTO patients "
                 + "(numero_telephone, nom, prenom, date_naissance) VALUES (?, 'Trabelsi', 'Sami', '1990-05-12')";
-        String requeteRendezVous = "INSERT INTO rendez_vous "
-                + "(matricule_medecin, numero_telephone_patient, date_heure, statut) VALUES (?, ?, ?, ?)";
         try (Connection connection = connexion.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(requetePatient)) {
                 statement.setString(1, TELEPHONE_PATIENT);
                 statement.executeUpdate();
             }
-            try (PreparedStatement statement = connection.prepareStatement(requeteRendezVous)) {
-                statement.setString(1, matricule);
-                statement.setString(2, TELEPHONE_PATIENT);
-                statement.setString(3, dateHeure);
-                statement.setString(4, statut);
-                statement.executeUpdate();
-            }
+            insererLigneRendezVous(connection, matricule, TELEPHONE_PATIENT, dateHeure, statut);
+        }
+    }
+
+    /**
+     * Insère un rendez-vous pour un médecin ET un patient qui existent déjà.
+     *
+     * @param dateHeure au format yyyy-MM-dd'T'HH:mm, par exemple 2030-01-15T09:00
+     * @param statut    PLANIFIE, EFFECTUE ou ANNULE
+     */
+    public static void insererRendezVousPatient(DatabaseConnection connexion, String matricule,
+                                                String numeroTelephonePatient, String dateHeure,
+                                                String statut) throws SQLException {
+        try (Connection connection = connexion.getConnection()) {
+            insererLigneRendezVous(connection, matricule, numeroTelephonePatient, dateHeure, statut);
+        }
+    }
+
+    private static void insererLigneRendezVous(Connection connection, String matricule,
+                                               String numeroTelephonePatient, String dateHeure,
+                                               String statut) throws SQLException {
+        String requete = "INSERT INTO rendez_vous "
+                + "(matricule_medecin, numero_telephone_patient, date_heure, statut) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(requete)) {
+            statement.setString(1, matricule);
+            statement.setString(2, numeroTelephonePatient);
+            statement.setString(3, dateHeure);
+            statement.setString(4, statut);
+            statement.executeUpdate();
         }
     }
 }
