@@ -18,7 +18,11 @@
     -fx-padding: 24;
 }
 
-/* ---------- Panneau de marque ---------- */
+.contenu-principal {
+    -fx-background-color: #F5F2EB;
+}
+
+/* ---------- Panneau de marque (connexion) ---------- */
 .panneau-marque {
     -fx-background-color: #17252B;
 }
@@ -45,6 +49,12 @@
     -fx-text-fill: #17252B;
 }
 
+.titre-section {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #17252B;
+}
+
 .sous-titre {
     -fx-font-size: 13px;
     -fx-text-fill: #5B5F58;
@@ -57,6 +67,11 @@
 
 .texte-aide {
     -fx-font-size: 12px;
+    -fx-text-fill: #5B5F58;
+}
+
+.etat-vide {
+    -fx-font-size: 13px;
     -fx-text-fill: #5B5F58;
 }
 
@@ -155,4 +170,202 @@
 
 .bouton-principal:focused {
     -fx-border-color: #17252B;
+}
+
+/* ---------- Navigation de la fenêtre principale (même encre que le panneau de connexion) ---------- */
+.panneau-navigation {
+    -fx-background-color: #17252B;
+}
+
+.navigation-marque {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 22px;
+    -fx-text-fill: #F5F2EB;
+}
+
+.navigation-etiquette {
+    -fx-font-size: 12px;
+    -fx-text-fill: #B8C2BF;
+}
+
+.navigation-utilisateur {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F5F2EB;
+}
+
+.navigation-element {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 4;
+    -fx-text-fill: #B8C2BF;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-padding: 12 16 12 20;
+}
+
+.navigation-element:hover {
+    -fx-background-color: #213840;
+    -fx-text-fill: #F5F2EB;
+}
+
+.navigation-element:pressed {
+    -fx-background-color: #2A4750;
+}
+
+.navigation-element:focused {
+    -fx-border-color: #F5F2EB;
+    -fx-border-width: 2;
+    -fx-padding: 11 15 11 19;
+}
+
+.navigation-element-actif {
+    -fx-background-color: #213840;
+    -fx-border-color: transparent transparent transparent #0B6B4D;
+    -fx-border-width: 0 0 0 4;
+    -fx-text-fill: #F5F2EB;
+    -fx-font-weight: bold;
+}
+
+.navigation-element-actif:hover {
+    -fx-background-color: #213840;
+    -fx-text-fill: #F5F2EB;
+}
+
+.navigation-element-actif:pressed {
+    -fx-background-color: #2A4750;
+}
+
+.navigation-element-actif:focused {
+    -fx-border-color: #F5F2EB;
+    -fx-border-width: 2;
+    -fx-padding: 11 15 11 19;
+}
+
+.bouton-navigation {
+    -fx-background-color: transparent;
+    -fx-border-color: #B8C2BF;
+    -fx-border-width: 1;
+    -fx-text-fill: #F5F2EB;
+}
+
+.bouton-navigation:hover {
+    -fx-background-color: #213840;
+}
+
+.bouton-navigation:pressed {
+    -fx-background-color: #2A4750;
+}
+
+.bouton-navigation:focused {
+    -fx-border-color: #F5F2EB;
+    -fx-border-width: 2;
+    -fx-padding: 8 19 8 19;
+}
+
+/* ---------- Tableau de bord : registre de chiffres ---------- */
+.registre {
+    -fx-border-color: #CFC8B8 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.ligne-chiffre {
+    -fx-padding: 10 0 10 0;
+    -fx-border-color: transparent transparent #CFC8B8 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.chiffre {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 30px;
+    -fx-text-fill: #17252B;
+}
+
+.libelle-chiffre {
+    -fx-font-size: 14px;
+    -fx-text-fill: #17252B;
+}
+
+/* ---------- Défilement ---------- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #B5AE9C;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #E9E4D6;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+/* ---------- Tableaux : angles droits, filets fins ---------- */
+.table-view {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #CFC8B8;
+    -fx-border-width: 1;
+    -fx-control-inner-background: #FFFDF8;
+    -fx-control-inner-background-alt: #FFFDF8;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ECE7DA;
+    -fx-background-insets: 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 34px;
+    -fx-border-color: transparent transparent #CFC8B8 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5B5F58;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 10;
+}
+
+.table-row-cell {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent transparent #E6E0D2 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 34px;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #E3F0EA;
+}
+
+.table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: #17252B;
+}
+
+.table-cell {
+    -fx-text-fill: #17252B;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10 0 10;
 }

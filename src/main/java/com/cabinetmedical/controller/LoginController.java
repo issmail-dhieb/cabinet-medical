@@ -6,26 +6,26 @@ import com.cabinetmedical.service.AuthService;
 import com.cabinetmedical.service.ServiceException;
 import com.cabinetmedical.util.AlertUtil;
 import com.cabinetmedical.view.LoginView;
-import com.cabinetmedical.view.SessionView;
-import java.util.Optional;
 import javafx.scene.Scene;
 
 /**
  * Relie l'écran de connexion / de création du compte à AuthService.
  * Aucune règle métier ici : les contrôles sont faits par AuthService, ce contrôleur
- * affiche seulement ses messages. L'écran de session n'est ouvert que si AuthService
- * indique qu'un utilisateur est connecté.
+ * affiche seulement ses messages. Après une connexion réussie, il appelle l'action
+ * fournie par l'application (ouverture de la fenêtre principale).
  */
 public class LoginController {
 
     private final AuthService authService;
     private final Scene scene;
     private final LoginView vue;
+    private final Runnable apresConnexion;
 
-    public LoginController(AuthService authService, Scene scene, LoginView vue) {
+    public LoginController(AuthService authService, Scene scene, LoginView vue, Runnable apresConnexion) {
         this.authService = authService;
         this.scene = scene;
         this.vue = vue;
+        this.apresConnexion = apresConnexion;
         brancherActions();
     }
 
@@ -48,6 +48,14 @@ public class LoginController {
         }
     }
 
+    /** Revient à l'écran de connexion après une déconnexion (la session est déjà fermée). */
+    public void afficherApresDeconnexion() {
+        vue.viderChampsConnexion();
+        vue.afficherConnexion();
+        vue.afficherInfoConnexion("Vous êtes déconnecté. Le cabinet garde vos secrets.");
+        scene.setRoot(vue.getRacine());
+    }
+
     private void brancherActions() {
         vue.getBoutonConnexion().setOnAction(evenement -> seConnecter());
         vue.getBoutonCreation().setOnAction(evenement -> creerAdministrateur());
@@ -57,8 +65,6 @@ public class LoginController {
         vue.effacerMessages();
         try {
             authService.connecter(vue.getNomConnexion(), vue.getMotDePasseConnexion());
-            vue.viderChampsConnexion();
-            ouvrirSession();
         } catch (ServiceException e) {
             vue.afficherErreurConnexion(e.getMessage());
             vue.viderMotDePasseConnexion();
@@ -67,7 +73,10 @@ public class LoginController {
             } else {
                 vue.focuserMotDePasseConnexion();
             }
+            return;
         }
+        vue.viderChampsConnexion();
+        apresConnexion.run();
     }
 
     private void creerAdministrateur() {
@@ -84,25 +93,5 @@ public class LoginController {
             vue.afficherErreurCreation(e.getMessage());
             vue.viderMotsDePasseCreation();
         }
-    }
-
-    private void ouvrirSession() {
-        Optional<Utilisateur> connecte = authService.getUtilisateurConnecte();
-        if (connecte.isEmpty()) {
-            vue.afficherConnexion();
-            scene.setRoot(vue.getRacine());
-            return;
-        }
-        SessionView session = new SessionView(connecte.get().getNomUtilisateur());
-        session.getBoutonDeconnexion().setOnAction(evenement -> seDeconnecter());
-        scene.setRoot(session.getRacine());
-    }
-
-    private void seDeconnecter() {
-        authService.deconnecter();
-        vue.viderChampsConnexion();
-        vue.afficherConnexion();
-        vue.afficherInfoConnexion("Vous êtes déconnecté. Le cabinet garde vos secrets.");
-        scene.setRoot(vue.getRacine());
     }
 }
