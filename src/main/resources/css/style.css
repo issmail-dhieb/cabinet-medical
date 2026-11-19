@@ -1,160 +1,205 @@
 /* src/main/resources/css/style.css */
 
-/* ---------- Base : papier et encre ---------- */
+/* ==========================================================================
+   Cabinet médical : barre latérale sombre, espace de travail clair
+   Palette
+     Espace de travail  #F0F2F5     Surface            #FFFFFF
+     Texte              #1C1E21     Texte secondaire   #65676B
+     Filets             #DADDE1     Bordure de champ   #CED0D4
+     Accent (sarcelle)  #0F766E  survol #115E59  appuyé #134E4A
+     Barre latérale     #101418  survol #1A2228  actif #243139
+     Texte sur sombre   #A7B0B7  (clair #F0F2F5)  accent sur sombre #14B8A6
+     Erreur             #A8231B sur #FDECEA (bord #F5C2BD)
+     Succès / info      #0B5A54 sur #E6F4F1 (bord #B7DED6)
+   Formes : rayon 8 (champs, boutons), 10 (tableaux), 12 (cartes)
+   ========================================================================== */
+
+/* ---------- Base ---------- */
 .root {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-background-color: #17252B;
-    -fx-focus-color: #0B6B4D;
+    -fx-text-background-color: #1C1E21;
+    -fx-focus-color: #0F766E;
     -fx-faint-focus-color: transparent;
 }
 
 .racine-ecran {
-    -fx-background-color: #F5F2EB;
+    -fx-background-color: #F0F2F5;
 }
 
 .zone-formulaire {
-    -fx-background-color: #F5F2EB;
+    -fx-background-color: #F0F2F5;
     -fx-padding: 24;
 }
 
 .contenu-principal {
-    -fx-background-color: #F5F2EB;
+    -fx-background-color: #F0F2F5;
+}
+
+/* Surface blanche arrondie, avec l'unique niveau d'ombre de l'application */
+.carte {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E4E6EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(16, 20, 24, 0.08), 10, 0, 0, 2);
 }
 
 /* ---------- Panneau de marque (connexion) ---------- */
 .panneau-marque {
-    -fx-background-color: #17252B;
+    -fx-background-color: #101418;
 }
 
 .marque-nom {
-    -fx-font-family: "Georgia";
-    -fx-font-size: 34px;
-    -fx-text-fill: #F5F2EB;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F0F2F5;
 }
 
 .filet-marque {
-    -fx-background-color: #0B6B4D;
+    -fx-background-color: #14B8A6;
+    -fx-background-radius: 2;
 }
 
 .marque-slogan {
     -fx-font-size: 14px;
-    -fx-text-fill: #B8C2BF;
+    -fx-text-fill: #A7B0B7;
 }
 
 /* ---------- Textes ---------- */
 .titre-page {
-    -fx-font-family: "Georgia";
-    -fx-font-size: 24px;
-    -fx-text-fill: #17252B;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C1E21;
 }
 
 .titre-section {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
 }
 
 .sous-titre {
     -fx-font-size: 13px;
-    -fx-text-fill: #5B5F58;
+    -fx-text-fill: #65676B;
 }
 
 .etiquette-champ {
     -fx-font-size: 12px;
-    -fx-text-fill: #5B5F58;
+    -fx-font-weight: bold;
+    -fx-text-fill: #65676B;
 }
 
 .texte-aide {
     -fx-font-size: 12px;
-    -fx-text-fill: #5B5F58;
+    -fx-text-fill: #65676B;
 }
 
 .etat-vide {
     -fx-font-size: 13px;
-    -fx-text-fill: #5B5F58;
+    -fx-text-fill: #65676B;
 }
 
 .regle {
-    -fx-background-color: #CFC8B8;
+    -fx-background-color: #E4E6EB;
 }
 
 /* ---------- Messages ---------- */
 .message {
     -fx-font-size: 13px;
-    -fx-padding: 8 12 8 12;
-    -fx-border-width: 0 0 0 3;
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 8;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
 }
 
 .message-erreur {
-    -fx-background-color: #FBE9E6;
-    -fx-border-color: #A8231B;
+    -fx-background-color: #FDECEA;
+    -fx-border-color: #F5C2BD;
     -fx-text-fill: #A8231B;
 }
 
 .message-info {
-    -fx-background-color: #E3F0EA;
-    -fx-border-color: #0B6B4D;
-    -fx-text-fill: #0B6B4D;
+    -fx-background-color: #E6F4F1;
+    -fx-border-color: #B7DED6;
+    -fx-text-fill: #0B5A54;
 }
 
-/* ---------- Champs de saisie : angles droits, filet fin ---------- */
+/* ---------- Champs de saisie ---------- */
 .text-field,
 .password-field {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #7D8379;
+    -fx-background-radius: 8;
+    -fx-border-color: #CED0D4;
     -fx-border-width: 1;
-    -fx-border-radius: 0;
-    -fx-padding: 8 10 8 10;
+    -fx-border-radius: 8;
+    -fx-padding: 9 12 9 12;
     -fx-font-size: 14px;
-    -fx-text-fill: #17252B;
-    -fx-prompt-text-fill: #5B5F58;
-    -fx-highlight-fill: #BFD9CF;
-    -fx-highlight-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
+    -fx-prompt-text-fill: #70747A;
+    -fx-highlight-fill: #B7DED6;
+    -fx-highlight-text-fill: #1C1E21;
 }
 
 .text-field:focused,
 .password-field:focused {
-    -fx-background-color: #FFFDF8;
-    -fx-border-color: #0B6B4D;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #0F766E;
     -fx-border-width: 2;
-    -fx-padding: 7 9 7 9;
+    -fx-padding: 8 11 8 11;
+}
+
+/* Champ de recherche en forme de pilule (classe ajoutée par la vue à la partie 2) */
+.text-field.champ-recherche {
+    -fx-background-color: #F0F2F5;
+    -fx-background-radius: 20;
+    -fx-border-color: transparent;
+    -fx-border-radius: 20;
+    -fx-padding: 9 16 9 16;
+}
+
+.text-field.champ-recherche:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #0F766E;
+    -fx-padding: 8 15 8 15;
 }
 
 /* Champ qu'on ne peut plus modifier (matricule d'un médecin existant) */
 .text-field.champ-verrouille {
-    -fx-background-color: #ECE7DA;
-    -fx-text-fill: #5B5F58;
+    -fx-background-color: #F0F2F5;
+    -fx-text-fill: #65676B;
 }
 
 .text-field.champ-verrouille:focused {
-    -fx-background-color: #ECE7DA;
+    -fx-background-color: #F0F2F5;
 }
 
-/* ---------- Liste déroulante : mêmes angles droits et mêmes filets ---------- */
+/* ---------- Listes déroulantes ---------- */
 .combo-box {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #7D8379;
+    -fx-background-radius: 8;
+    -fx-border-color: #CED0D4;
     -fx-border-width: 1;
-    -fx-border-radius: 0;
+    -fx-border-radius: 8;
     -fx-padding: 0;
 }
 
 .combo-box:focused {
-    -fx-background-color: #FFFDF8;
-    -fx-border-color: #0B6B4D;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #0F766E;
     -fx-border-width: 2;
 }
 
 .combo-box > .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
     -fx-font-size: 14px;
-    -fx-padding: 8 10 8 10;
+    -fx-padding: 9 12 9 12;
 }
 
 .combo-box > .arrow-button {
@@ -164,36 +209,39 @@
 }
 
 .combo-box > .arrow-button > .arrow {
-    -fx-background-color: #17252B;
+    -fx-background-color: #65676B;
 }
 
 .combo-box-popup > .list-view {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #7D8379;
+    -fx-background-radius: 8;
+    -fx-border-color: #CED0D4;
     -fx-border-width: 1;
-    -fx-padding: 0;
+    -fx-border-radius: 8;
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(16, 20, 24, 0.12), 10, 0, 0, 3);
 }
 
 .combo-box-popup .list-cell {
-    -fx-background-color: #FFFDF8;
-    -fx-text-fill: #17252B;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 6;
+    -fx-text-fill: #1C1E21;
     -fx-font-size: 14px;
     -fx-padding: 8 10 8 10;
 }
 
 .combo-box-popup .list-cell:filled:hover {
-    -fx-background-color: #E9E4D6;
-    -fx-text-fill: #17252B;
+    -fx-background-color: #F0F2F5;
+    -fx-text-fill: #1C1E21;
 }
 
 .combo-box-popup .list-cell:filled:selected {
-    -fx-background-color: #E3F0EA;
-    -fx-text-fill: #17252B;
+    -fx-background-color: #E6F4F1;
+    -fx-text-fill: #0B5A54;
 }
 
-/* ---------- Calendrier (sélecteur de date) : même style que les champs ---------- */
+/* ---------- Calendrier (sélecteur de date) ---------- */
 .date-picker {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -201,80 +249,88 @@
     -fx-padding: 0;
 }
 
+.date-picker > .text-field {
+    -fx-background-radius: 8 0 0 8;
+    -fx-border-radius: 8 0 0 8;
+}
+
 .date-picker > .arrow-button {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #7D8379;
+    -fx-background-radius: 0 8 8 0;
+    -fx-border-color: #CED0D4;
     -fx-border-width: 1 1 1 0;
-    -fx-border-radius: 0;
+    -fx-border-radius: 0 8 8 0;
     -fx-padding: 0 12 0 12;
 }
 
 .date-picker > .arrow-button > .arrow {
-    -fx-background-color: #17252B;
+    -fx-background-color: #65676B;
 }
 
 .date-picker-popup {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #7D8379;
+    -fx-background-radius: 10;
+    -fx-border-color: #CED0D4;
     -fx-border-width: 1;
-    -fx-border-radius: 0;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(16, 20, 24, 0.12), 10, 0, 0, 3);
 }
 
 .date-picker-popup > .month-year-pane {
-    -fx-background-color: #ECE7DA;
+    -fx-background-color: #F0F2F5;
+    -fx-background-radius: 10 10 0 0;
 }
 
 .date-picker-popup .date-cell {
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
+    -fx-background-radius: 6;
 }
 
 .date-picker-popup .date-cell:hover {
-    -fx-background-color: #E9E4D6;
+    -fx-background-color: #E4E6EB;
 }
 
 .date-picker-popup .date-cell:selected {
-    -fx-background-color: #0B6B4D;
+    -fx-background-color: #0F766E;
     -fx-text-fill: #FFFFFF;
 }
 
-/* ---------- Champs désactivés : même teinte que le champ verrouillé, texte lisible ---------- */
+/* ---------- Champs désactivés : fond grisé, texte lisible ---------- */
 .combo-box:disabled,
 .date-picker:disabled {
     -fx-opacity: 1;
 }
 
 .combo-box:disabled {
-    -fx-background-color: #ECE7DA;
+    -fx-background-color: #F0F2F5;
 }
 
 .combo-box:disabled > .list-cell {
-    -fx-text-fill: #5B5F58;
+    -fx-text-fill: #65676B;
     -fx-opacity: 1;
 }
 
 .date-picker:disabled > .text-field {
-    -fx-background-color: #ECE7DA;
-    -fx-text-fill: #5B5F58;
+    -fx-background-color: #F0F2F5;
+    -fx-text-fill: #65676B;
     -fx-opacity: 1;
 }
 
 .date-picker:disabled > .arrow-button {
-    -fx-background-color: #ECE7DA;
+    -fx-background-color: #F0F2F5;
 }
 
-/* ---------- Boutons : secondaire par défaut, principal en vert pharmacie ---------- */
+/* ---------- Boutons : secondaire gris, principal sarcelle, danger en contour rouge ---------- */
 .button {
-    -fx-background-color: transparent;
+    -fx-background-color: #E4E6EB;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #17252B;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
     -fx-border-width: 1;
-    -fx-border-radius: 0;
-    -fx-text-fill: #17252B;
+    -fx-border-radius: 8;
+    -fx-text-fill: #1C1E21;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-padding: 9 20 9 20;
@@ -282,169 +338,170 @@
 }
 
 .button:hover {
-    -fx-background-color: #E9E4D6;
+    -fx-background-color: #D8DADF;
 }
 
 .button:pressed {
-    -fx-background-color: #DDD6C4;
+    -fx-background-color: #CCCFD4;
 }
 
 .button:focused {
-    -fx-border-color: #0B6B4D;
+    -fx-border-color: #0F766E;
     -fx-border-width: 2;
     -fx-padding: 8 19 8 19;
 }
 
 .bouton-principal {
-    -fx-background-color: #0B6B4D;
-    -fx-border-color: #0B6B4D;
+    -fx-background-color: #0F766E;
     -fx-text-fill: #FFFFFF;
 }
 
 .bouton-principal:hover {
-    -fx-background-color: #085540;
-    -fx-border-color: #085540;
+    -fx-background-color: #115E59;
 }
 
 .bouton-principal:pressed {
-    -fx-background-color: #06432F;
-    -fx-border-color: #06432F;
+    -fx-background-color: #134E4A;
 }
 
 .bouton-principal:focused {
-    -fx-border-color: #17252B;
+    -fx-border-color: #101418;
 }
 
-/* Action destructive : contour rouge, jamais plein */
+/* Action destructive : contour rouge, jamais pleine */
 .bouton-danger {
-    -fx-border-color: #A8231B;
+    -fx-background-color: transparent;
+    -fx-border-color: #E3B5B1;
     -fx-text-fill: #A8231B;
 }
 
 .bouton-danger:hover {
-    -fx-background-color: #FBE9E6;
+    -fx-background-color: #FDECEA;
 }
 
 .bouton-danger:pressed {
-    -fx-background-color: #F5D5D0;
+    -fx-background-color: #F9D9D5;
 }
 
 .bouton-danger:focused {
-    -fx-border-color: #17252B;
+    -fx-border-color: #A8231B;
 }
 
-/* ---------- Navigation de la fenêtre principale (même encre que le panneau de connexion) ---------- */
+/* ---------- Navigation de la fenêtre principale ---------- */
 .panneau-navigation {
-    -fx-background-color: #17252B;
+    -fx-background-color: #101418;
 }
 
 .navigation-marque {
-    -fx-font-family: "Georgia";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 22px;
-    -fx-text-fill: #F5F2EB;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F0F2F5;
 }
 
 .navigation-etiquette {
     -fx-font-size: 12px;
-    -fx-text-fill: #B8C2BF;
+    -fx-text-fill: #A7B0B7;
 }
 
 .navigation-utilisateur {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #F5F2EB;
+    -fx-text-fill: #F0F2F5;
 }
 
 .navigation-element {
     -fx-background-color: transparent;
+    -fx-background-radius: 8;
     -fx-border-color: transparent;
-    -fx-border-width: 0 0 0 4;
-    -fx-text-fill: #B8C2BF;
+    -fx-border-width: 0;
+    -fx-text-fill: #A7B0B7;
     -fx-font-size: 14px;
     -fx-font-weight: normal;
-    -fx-padding: 12 16 12 20;
+    -fx-padding: 12 16 12 16;
 }
 
 .navigation-element:hover {
-    -fx-background-color: #213840;
-    -fx-text-fill: #F5F2EB;
+    -fx-background-color: #1A2228;
+    -fx-text-fill: #F0F2F5;
 }
 
 .navigation-element:pressed {
-    -fx-background-color: #2A4750;
+    -fx-background-color: #243139;
 }
 
 .navigation-element:focused {
-    -fx-border-color: #F5F2EB;
+    -fx-border-color: #14B8A6;
     -fx-border-width: 2;
-    -fx-padding: 11 15 11 19;
+    -fx-padding: 10 14 10 14;
 }
 
 .navigation-element-actif {
-    -fx-background-color: #213840;
-    -fx-border-color: transparent transparent transparent #0B6B4D;
-    -fx-border-width: 0 0 0 4;
-    -fx-text-fill: #F5F2EB;
+    -fx-background-color: #243139;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
 }
 
 .navigation-element-actif:hover {
-    -fx-background-color: #213840;
-    -fx-text-fill: #F5F2EB;
+    -fx-background-color: #243139;
+    -fx-text-fill: #FFFFFF;
 }
 
 .navigation-element-actif:pressed {
-    -fx-background-color: #2A4750;
+    -fx-background-color: #2B3A44;
 }
 
 .navigation-element-actif:focused {
-    -fx-border-color: #F5F2EB;
+    -fx-border-color: #14B8A6;
     -fx-border-width: 2;
-    -fx-padding: 11 15 11 19;
+    -fx-padding: 10 14 10 14;
 }
 
 .bouton-navigation {
     -fx-background-color: transparent;
-    -fx-border-color: #B8C2BF;
+    -fx-border-color: #3A464F;
     -fx-border-width: 1;
-    -fx-text-fill: #F5F2EB;
+    -fx-text-fill: #F0F2F5;
 }
 
 .bouton-navigation:hover {
-    -fx-background-color: #213840;
+    -fx-background-color: #1A2228;
 }
 
 .bouton-navigation:pressed {
-    -fx-background-color: #2A4750;
+    -fx-background-color: #243139;
 }
 
 .bouton-navigation:focused {
-    -fx-border-color: #F5F2EB;
+    -fx-border-color: #14B8A6;
     -fx-border-width: 2;
     -fx-padding: 8 19 8 19;
 }
 
-/* ---------- Tableau de bord : registre de chiffres ---------- */
+/* ---------- Tableau de bord : chiffres du cabinet ---------- */
 .registre {
-    -fx-border-color: #CFC8B8 transparent transparent transparent;
-    -fx-border-width: 1 0 0 0;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E4E6EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 8 24 8 24;
 }
 
 .ligne-chiffre {
-    -fx-padding: 10 0 10 0;
-    -fx-border-color: transparent transparent #CFC8B8 transparent;
-    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12 0 12 0;
 }
 
 .chiffre {
-    -fx-font-family: "Georgia";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 30px;
-    -fx-text-fill: #17252B;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F766E;
 }
 
 .libelle-chiffre {
     -fx-font-size: 14px;
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
 }
 
 /* ---------- Défilement ---------- */
@@ -463,69 +520,80 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #B5AE9C;
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
+    -fx-background-color: #BCC0C4;
+    -fx-background-radius: 10;
+    -fx-background-insets: 2;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #9DA1A6;
 }
 
 .scroll-bar .track {
-    -fx-background-color: #E9E4D6;
+    -fx-background-color: transparent;
     -fx-background-radius: 0;
     -fx-border-color: transparent;
 }
 
-/* ---------- Tableaux : angles droits, filets fins ---------- */
+/* ---------- Tableaux ---------- */
 .table-view {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-border-color: #CFC8B8;
+    -fx-background-radius: 10;
+    -fx-border-color: #DADDE1;
     -fx-border-width: 1;
-    -fx-control-inner-background: #FFFDF8;
-    -fx-control-inner-background-alt: #FFFDF8;
+    -fx-border-radius: 10;
+    -fx-control-inner-background: #FFFFFF;
+    -fx-control-inner-background-alt: #FFFFFF;
     -fx-table-cell-border-color: transparent;
     -fx-padding: 0;
 }
 
+/* L'en-tête reste blanc : ses coins carrés ne dépassent pas des coins arrondis du tableau */
 .table-view .column-header-background {
-    -fx-background-color: #ECE7DA;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
+    -fx-background-radius: 10 10 0 0;
 }
 
 .table-view .column-header,
 .table-view .filler {
     -fx-background-color: transparent;
     -fx-size: 34px;
-    -fx-border-color: transparent transparent #CFC8B8 transparent;
+    -fx-border-color: transparent transparent #DADDE1 transparent;
     -fx-border-width: 0 0 1 0;
 }
 
 .table-view .column-header .label {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #5B5F58;
+    -fx-text-fill: #65676B;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 0 0 10;
 }
 
 .table-row-cell {
-    -fx-background-color: #FFFDF8;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0;
-    -fx-border-color: transparent transparent #E6E0D2 transparent;
+    -fx-border-color: transparent transparent #EDEFF2 transparent;
     -fx-border-width: 0 0 1 0;
     -fx-cell-size: 34px;
 }
 
+.table-row-cell:filled:hover {
+    -fx-background-color: #F5F6F7;
+}
+
 .table-row-cell:filled:selected {
-    -fx-background-color: #E3F0EA;
+    -fx-background-color: #E6F4F1;
 }
 
 .table-row-cell:filled:selected .table-cell {
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
 }
 
 .table-cell {
-    -fx-text-fill: #17252B;
+    -fx-text-fill: #1C1E21;
     -fx-font-size: 13px;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 10 0 10;
@@ -535,8 +603,8 @@
 .badge-statut {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-padding: 3 10 3 10;
-    -fx-background-radius: 0;
+    -fx-padding: 3 12 3 12;
+    -fx-background-radius: 12;
 }
 
 .badge-planifie {
@@ -556,4 +624,33 @@
 
 .badge-annule > .text {
     -fx-strikethrough: true;
+}
+
+/* ---------- Boîtes de dialogue (actives à la partie 2, quand la feuille de style leur est ajoutée) ---------- */
+.dialog-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.dialog-pane > .content.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1C1E21;
+    -fx-padding: 16 24 16 24;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #F0F2F5;
+    -fx-padding: 16 24 16 24;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C1E21;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 8 16 16 16;
 }

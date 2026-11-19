@@ -2,6 +2,7 @@
 package com.cabinetmedical.view;
 
 import com.cabinetmedical.model.Medecin;
+import com.cabinetmedical.util.FormatUtil;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -26,8 +27,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Section « Médecins » : barre de recherche, tableau des médecins et formulaire
- * d'ajout / de modification. Cette classe construit uniquement l'interface :
- * aucune logique métier ici, c'est MedecinController qui relie la vue au service.
+ * d'ajout / de modification (dans une carte blanche). Cette classe construit uniquement
+ * l'interface : aucune logique métier ici, c'est MedecinController qui relie la vue au service.
  */
 public class MedecinView {
 
@@ -249,7 +250,7 @@ public class MedecinView {
         champNom.setText(medecin.getNom());
         champPrenom.setText(medecin.getPrenom());
         champSpecialite.setText(medecin.getSpecialite());
-        champTelephone.setText(formaterTelephone(medecin.getTelephone()));
+        champTelephone.setText(FormatUtil.formaterTelephone(medecin.getTelephone()));
         definirMatriculeVerrouille(true);
         titreFormulaire.setText("Modifier le médecin " + medecin.getNomComplet());
         boutonEnregistrer.setText("Enregistrer les modifications");
@@ -292,6 +293,7 @@ public class MedecinView {
         listeCriteres.setValue(Critere.NOM);
         listeCriteres.setPrefWidth(150);
         listeCriteres.setMinWidth(Region.USE_PREF_SIZE);
+        champRecherche.getStyleClass().add("champ-recherche");
         champRecherche.setPromptText(Critere.NOM.getInvite());
         champRecherche.setMaxWidth(Double.MAX_VALUE);
 
@@ -313,7 +315,8 @@ public class MedecinView {
         tableau.getColumns().add(creerColonne("NOM", 140, Medecin::getNom));
         tableau.getColumns().add(creerColonne("PRÉNOM", 140, Medecin::getPrenom));
         tableau.getColumns().add(creerColonne("SPÉCIALITÉ", 170, Medecin::getSpecialite));
-        tableau.getColumns().add(creerColonne("TÉLÉPHONE", 110, medecin -> formaterTelephone(medecin.getTelephone())));
+        tableau.getColumns().add(creerColonne("TÉLÉPHONE", 110,
+                medecin -> FormatUtil.formaterTelephone(medecin.getTelephone())));
         tableau.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         tableau.setFixedCellSize(HAUTEUR_LIGNE_TABLEAU);
         // Hauteur minimale : l'en-tête + 4 lignes. Le tableau grandit ensuite avec la fenêtre.
@@ -341,6 +344,7 @@ public class MedecinView {
         return colonne;
     }
 
+    /** Barre de recherche dans une carte blanche (le champ en pilule grise reste visible dessus). */
     private HBox construireBarreRecherche() {
         Label etiquette = new Label("RECHERCHER PAR");
         etiquette.getStyleClass().add("etiquette-champ");
@@ -351,17 +355,14 @@ public class MedecinView {
 
         HBox.setHgrow(champRecherche, Priority.ALWAYS);
         HBox barre = new HBox(12, etiquette, listeCriteres, champRecherche, resume);
+        barre.getStyleClass().add("carte");
+        barre.setPadding(new Insets(10, 16, 10, 16));
         barre.setAlignment(Pos.CENTER_LEFT);
         return barre;
     }
 
+    /** Formulaire dans une carte blanche arrondie. */
     private VBox construireFormulaire() {
-        Region regle = new Region();
-        regle.getStyleClass().add("regle");
-        regle.setPrefHeight(1);
-        regle.setMinHeight(1);
-        regle.setMaxHeight(1);
-
         titreFormulaire.getStyleClass().add("titre-section");
         titreFormulaire.setWrapText(true);
         titreFormulaire.setMinHeight(Region.USE_PREF_SIZE);
@@ -396,7 +397,10 @@ public class MedecinView {
         grille.add(creerChamp("TÉLÉPHONE", champTelephone), 1, 1);
         grille.add(aide, 2, 1);
 
-        return new VBox(12, regle, titreFormulaire, message, grille, construireBoutons());
+        VBox formulaire = new VBox(12, titreFormulaire, message, grille, construireBoutons());
+        formulaire.getStyleClass().add("carte");
+        formulaire.setPadding(new Insets(20));
+        return formulaire;
     }
 
     private HBox construireBoutons() {
@@ -438,13 +442,5 @@ public class MedecinView {
             }
         }
         return -1;
-    }
-
-    /** Affiche 20123456 sous la forme « 20 123 456 » (le service accepte les espaces). */
-    private static String formaterTelephone(String telephone) {
-        if (telephone != null && telephone.matches("\\d{8}")) {
-            return telephone.substring(0, 2) + " " + telephone.substring(2, 5) + " " + telephone.substring(5);
-        }
-        return telephone;
     }
 }

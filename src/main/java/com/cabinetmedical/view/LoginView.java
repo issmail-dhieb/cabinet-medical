@@ -17,7 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Écran d'accueil : panneau de marque à gauche, formulaire à droite.
+ * Écran d'accueil : panneau de marque à gauche, formulaire (dans une carte blanche) à droite.
  * Le formulaire est soit la connexion, soit la création du compte administrateur
  * (premier lancement). Cette classe construit uniquement l'interface : aucune logique
  * métier ici, c'est LoginController qui décide quoi afficher.
@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 public class LoginView {
 
     private static final double LARGEUR_PANNEAU_MARQUE = 340;
-    private static final double LARGEUR_FORMULAIRE = 380;
+    private static final double LARGEUR_FORMULAIRE = 440;
 
     private final BorderPane racine = new BorderPane();
     private final StackPane zoneFormulaire = new StackPane();
@@ -218,6 +218,7 @@ public class LoginView {
                 boutonCreation);
     }
 
+    /** Assemble un formulaire dans une carte blanche arrondie. */
     private VBox assemblerFormulaire(String titre, String sousTitre, Node... contenu) {
         Label labelTitre = new Label(titre);
         labelTitre.getStyleClass().add("titre-page");
@@ -235,6 +236,8 @@ public class LoginView {
         VBox formulaire = new VBox(12);
         formulaire.getChildren().addAll(labelTitre, labelSousTitre, regle);
         formulaire.getChildren().addAll(contenu);
+        formulaire.getStyleClass().add("carte");
+        formulaire.setPadding(new Insets(28));
         formulaire.setAlignment(Pos.TOP_LEFT);
         formulaire.setMaxWidth(LARGEUR_FORMULAIRE);
         formulaire.setMaxHeight(Region.USE_PREF_SIZE);

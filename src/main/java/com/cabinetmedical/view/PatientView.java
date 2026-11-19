@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * Section « Patients » : barre de recherche, tableau des patients et formulaire
- * d'ajout / de modification. Même organisation que la section Médecins.
+ * d'ajout / de modification (dans une carte blanche). Même organisation que la section Médecins.
  * Cette classe construit uniquement l'interface : aucune logique métier ici,
  * c'est PatientController qui relie la vue au service.
  */
@@ -285,6 +285,7 @@ public class PatientView {
         listeCriteres.setValue(Critere.NOM);
         listeCriteres.setPrefWidth(150);
         listeCriteres.setMinWidth(Region.USE_PREF_SIZE);
+        champRecherche.getStyleClass().add("champ-recherche");
         champRecherche.setPromptText(Critere.NOM.getInvite());
         champRecherche.setMaxWidth(Double.MAX_VALUE);
 
@@ -335,6 +336,7 @@ public class PatientView {
         return colonne;
     }
 
+    /** Barre de recherche dans une carte blanche (le champ en pilule grise reste visible dessus). */
     private HBox construireBarreRecherche() {
         Label etiquette = new Label("RECHERCHER PAR");
         etiquette.getStyleClass().add("etiquette-champ");
@@ -345,17 +347,14 @@ public class PatientView {
 
         HBox.setHgrow(champRecherche, Priority.ALWAYS);
         HBox barre = new HBox(12, etiquette, listeCriteres, champRecherche, resume);
+        barre.getStyleClass().add("carte");
+        barre.setPadding(new Insets(10, 16, 10, 16));
         barre.setAlignment(Pos.CENTER_LEFT);
         return barre;
     }
 
+    /** Formulaire dans une carte blanche arrondie. */
     private VBox construireFormulaire() {
-        Region regle = new Region();
-        regle.getStyleClass().add("regle");
-        regle.setPrefHeight(1);
-        regle.setMinHeight(1);
-        regle.setMaxHeight(1);
-
         titreFormulaire.getStyleClass().add("titre-section");
         titreFormulaire.setWrapText(true);
         titreFormulaire.setMinHeight(Region.USE_PREF_SIZE);
@@ -391,7 +390,10 @@ public class PatientView {
         grille.add(creerChamp("DATE DE NAISSANCE", champDateNaissance), 0, 1);
         grille.add(aide, 1, 1, 2, 1);
 
-        return new VBox(12, regle, titreFormulaire, message, grille, construireBoutons());
+        VBox formulaire = new VBox(12, titreFormulaire, message, grille, construireBoutons());
+        formulaire.getStyleClass().add("carte");
+        formulaire.setPadding(new Insets(20));
+        return formulaire;
     }
 
     private HBox construireBoutons() {

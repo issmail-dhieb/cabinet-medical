@@ -2,7 +2,7 @@
 package com.cabinetmedical.view;
 
 import com.cabinetmedical.model.RendezVousDetail;
-import java.time.format.DateTimeFormatter;
+import com.cabinetmedical.util.FormatUtil;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
- * Fenêtre principale : navigation à gauche (encre), contenu à droite (papier).
+ * Fenêtre principale : navigation à gauche (panneau sombre), contenu à droite (espace clair).
  * Cette classe construit uniquement l'interface : aucune logique métier ici,
  * c'est MainController qui fournit les données et réagit aux boutons.
  */
@@ -70,7 +70,6 @@ public class MainView {
         }
     }
 
-    private static final DateTimeFormatter FORMAT_DATE_HEURE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final String STYLE_ACTIF = "navigation-element-actif";
     private static final double LARGEUR_NAVIGATION = 250;
     private static final double LARGEUR_MAX_REGISTRE = 520;
@@ -190,10 +189,13 @@ public class MainView {
         filet.setMinSize(48, 4);
         filet.setMaxSize(48, 4);
 
+        // Le texte de la marque commence à la même position que le texte des éléments de navigation (12 + 16 = 28).
         VBox entete = new VBox(16, marque, filet);
-        entete.setPadding(new Insets(0, 24, 24, 24));
+        entete.setPadding(new Insets(0, 16, 24, 28));
 
-        VBox elements = new VBox(2);
+        // Marge de 12 px de chaque côté : les éléments forment des pastilles arrondies.
+        VBox elements = new VBox(4);
+        elements.setPadding(new Insets(0, 12, 0, 12));
         elements.getChildren().addAll(boutonsNavigation.values());
 
         Region espace = new Region();
@@ -201,14 +203,16 @@ public class MainView {
 
         Label etiquette = new Label("CONNECTÉ EN TANT QUE");
         etiquette.getStyleClass().add("navigation-etiquette");
+        etiquette.setPadding(new Insets(0, 0, 0, 16));
         nomUtilisateur.getStyleClass().add("navigation-utilisateur");
+        nomUtilisateur.setPadding(new Insets(0, 0, 4, 16));
         nomUtilisateur.setWrapText(true);
         nomUtilisateur.setMinHeight(Region.USE_PREF_SIZE);
         boutonDeconnexion.getStyleClass().add("bouton-navigation");
         boutonDeconnexion.setMaxWidth(Double.MAX_VALUE);
 
         VBox pied = new VBox(8, etiquette, nomUtilisateur, boutonDeconnexion);
-        pied.setPadding(new Insets(0, 24, 0, 24));
+        pied.setPadding(new Insets(0, 12, 0, 12));
 
         VBox panneau = new VBox(0, entete, elements, espace, pied);
         panneau.getStyleClass().add("panneau-navigation");
@@ -233,9 +237,12 @@ public class MainView {
         regle.setMinHeight(1);
         regle.setMaxHeight(1);
 
+        // Même décalage à gauche et à droite que le corps, pour que le titre et les cartes soient alignés.
         VBox entete = new VBox(12, titrePage, descriptionPage, regle);
+        entete.setPadding(new Insets(0, 16, 0, 8));
 
-        corps.setPadding(new Insets(8, 16, 8, 0));
+        // Marge autour du contenu : l'ombre douce des cartes n'est pas coupée par le défilement.
+        corps.setPadding(new Insets(8, 16, 12, 8));
         ScrollPane defilement = new ScrollPane(corps);
         defilement.setFitToWidth(true);
         defilement.setFitToHeight(true);
@@ -282,7 +289,7 @@ public class MainView {
     private TableView<RendezVousDetail> creerTableau(List<RendezVousDetail> lignes) {
         TableView<RendezVousDetail> tableau = new TableView<>(FXCollections.observableArrayList(lignes));
         tableau.getColumns().add(creerColonne("DATE ET HEURE", 170,
-                detail -> detail.getRendezVous().getDateHeure().format(FORMAT_DATE_HEURE)));
+                detail -> FormatUtil.formaterDateHeure(detail.getRendezVous().getDateHeure())));
         tableau.getColumns().add(creerColonne("PATIENT", 220,
                 detail -> detail.getPatient().getNomComplet()));
         tableau.getColumns().add(creerColonne("MÉDECIN", 200,

@@ -1,6 +1,7 @@
 // src/main/java/com/cabinetmedical/util/AlertUtil.java
 package com.cabinetmedical.util;
 
+import java.net.URL;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,8 +13,11 @@ import javafx.scene.control.ButtonType;
  * Boîtes de dialogue communes à l'application.
  * Les messages affichés doivent déjà être compréhensibles par l'utilisateur
  * (par exemple le message d'une ServiceException).
+ * Les boîtes utilisent la même feuille de style que le reste de l'application.
  */
 public final class AlertUtil {
+
+    private static final String FEUILLE_DE_STYLE = "/css/style.css";
 
     private AlertUtil() {
     }
@@ -24,6 +28,7 @@ public final class AlertUtil {
         alerte.setTitle("Erreur");
         alerte.setHeaderText(titre);
         alerte.setContentText(message);
+        appliquerStyle(alerte);
         alerte.showAndWait();
     }
 
@@ -40,6 +45,7 @@ public final class AlertUtil {
         Alert alerte = new Alert(AlertType.CONFIRMATION, message, confirmer, annuler);
         alerte.setTitle("Confirmation");
         alerte.setHeaderText(titre);
+        appliquerStyle(alerte);
 
         Button boutonConfirmer = (Button) alerte.getDialogPane().lookupButton(confirmer);
         Button boutonAnnuler = (Button) alerte.getDialogPane().lookupButton(annuler);
@@ -48,5 +54,13 @@ public final class AlertUtil {
 
         Optional<ButtonType> choix = alerte.showAndWait();
         return choix.isPresent() && choix.get() == confirmer;
+    }
+
+    /** Applique la feuille de style de l'application à la boîte (sans effet si elle est introuvable). */
+    private static void appliquerStyle(Alert alerte) {
+        URL feuille = AlertUtil.class.getResource(FEUILLE_DE_STYLE);
+        if (feuille != null) {
+            alerte.getDialogPane().getStylesheets().add(feuille.toExternalForm());
+        }
     }
 }

@@ -41,7 +41,8 @@ import javafx.util.StringConverter;
 
 /**
  * Section « Rendez-vous » : filtres, tableau des rendez-vous et formulaire de
- * planification / de modification. Même organisation que les sections Médecins et Patients.
+ * planification / de modification (dans une carte blanche). Même organisation que les
+ * sections Médecins et Patients.
  * Cette classe construit uniquement l'interface : aucune logique métier ici,
  * c'est RendezVousController qui relie la vue aux services.
  */
@@ -359,6 +360,7 @@ public class RendezVousView {
         listeFiltres.setValue(Filtre.PLANIFIE);
         listeFiltres.setPrefWidth(150);
         listeFiltres.setMinWidth(Region.USE_PREF_SIZE);
+        champRecherche.getStyleClass().add("champ-recherche");
         champRecherche.setPromptText("Rechercher un patient ou un médecin");
         champRecherche.setMaxWidth(Double.MAX_VALUE);
 
@@ -509,6 +511,7 @@ public class RendezVousView {
         });
     }
 
+    /** Barre de filtres dans une carte blanche (le champ en pilule grise reste visible dessus). */
     private HBox construireBarreRecherche() {
         Label etiquette = new Label("STATUT");
         etiquette.getStyleClass().add("etiquette-champ");
@@ -519,17 +522,14 @@ public class RendezVousView {
 
         HBox.setHgrow(champRecherche, Priority.ALWAYS);
         HBox barre = new HBox(12, etiquette, listeFiltres, champRecherche, resume);
+        barre.getStyleClass().add("carte");
+        barre.setPadding(new Insets(10, 16, 10, 16));
         barre.setAlignment(Pos.CENTER_LEFT);
         return barre;
     }
 
+    /** Formulaire dans une carte blanche arrondie. */
     private VBox construireFormulaire() {
-        Region regle = new Region();
-        regle.getStyleClass().add("regle");
-        regle.setPrefHeight(1);
-        regle.setMinHeight(1);
-        regle.setMaxHeight(1);
-
         titreFormulaire.getStyleClass().add("titre-section");
         titreFormulaire.setWrapText(true);
         titreFormulaire.setMinHeight(Region.USE_PREF_SIZE);
@@ -560,7 +560,10 @@ public class RendezVousView {
         grille.add(creerChamp("HEURE", listeHeures), 1, 1);
         grille.add(aideFormulaire, 2, 1, 2, 1);
 
-        return new VBox(12, regle, titreFormulaire, message, grille, construireBoutons());
+        VBox formulaire = new VBox(12, titreFormulaire, message, grille, construireBoutons());
+        formulaire.getStyleClass().add("carte");
+        formulaire.setPadding(new Insets(20));
+        return formulaire;
     }
 
     private HBox construireBoutons() {
