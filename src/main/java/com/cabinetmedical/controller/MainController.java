@@ -12,6 +12,7 @@ import com.cabinetmedical.view.MainView;
 import com.cabinetmedical.view.MainView.Section;
 import com.cabinetmedical.view.MedecinView;
 import com.cabinetmedical.view.PatientView;
+import com.cabinetmedical.view.RendezVousView;
 import java.util.List;
 import java.util.Optional;
 import javafx.scene.Scene;
@@ -36,6 +37,8 @@ public class MainController {
     private final MedecinController controleurMedecins;
     private final PatientView vuePatients;
     private final PatientController controleurPatients;
+    private final RendezVousView vueRendezVous;
+    private final RendezVousController controleurRendezVous;
 
     public MainController(AuthService authService, MedecinService medecinService,
                           PatientService patientService, RendezVousService rendezVousService,
@@ -51,6 +54,9 @@ public class MainController {
         this.controleurMedecins = new MedecinController(medecinService, vueMedecins);
         this.vuePatients = new PatientView();
         this.controleurPatients = new PatientController(patientService, vuePatients);
+        this.vueRendezVous = new RendezVousView();
+        this.controleurRendezVous = new RendezVousController(
+                rendezVousService, medecinService, patientService, vueRendezVous);
         brancherActions();
     }
 
@@ -85,7 +91,10 @@ public class MainController {
                 controleurPatients.ouvrir();
                 vue.afficherContenu(vuePatients.getRacine());
             }
-            default -> vue.afficherSectionEnPreparation(section);
+            case RENDEZ_VOUS -> {
+                controleurRendezVous.ouvrir();
+                vue.afficherContenu(vueRendezVous.getRacine());
+            }
         }
     }
 
@@ -97,7 +106,7 @@ public class MainController {
             int limite = Math.min(PROCHAINS_RENDEZ_VOUS_AFFICHES, aVenir.size());
             vue.afficherTableauDeBord(nombreMedecins, nombrePatients, aVenir.size(), aVenir.subList(0, limite));
         } catch (ServiceException e) {
-            vue.afficherErreurTableauDeBord(e.getMessage());
+            vue.afficherErreur​TableauDeBord(e.getMessage());
         }
     }
 

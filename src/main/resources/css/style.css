@@ -193,6 +193,79 @@
     -fx-text-fill: #17252B;
 }
 
+/* ---------- Calendrier (sélecteur de date) : même style que les champs ---------- */
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #7D8379;
+    -fx-border-width: 1 1 1 0;
+    -fx-border-radius: 0;
+    -fx-padding: 0 12 0 12;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #17252B;
+}
+
+.date-picker-popup {
+    -fx-background-color: #FFFDF8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #7D8379;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #ECE7DA;
+}
+
+.date-picker-popup .date-cell {
+    -fx-text-fill: #17252B;
+}
+
+.date-picker-popup .date-cell:hover {
+    -fx-background-color: #E9E4D6;
+}
+
+.date-picker-popup .date-cell:selected {
+    -fx-background-color: #0B6B4D;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* ---------- Champs désactivés : même teinte que le champ verrouillé, texte lisible ---------- */
+.combo-box:disabled,
+.date-picker:disabled {
+    -fx-opacity: 1;
+}
+
+.combo-box:disabled {
+    -fx-background-color: #ECE7DA;
+}
+
+.combo-box:disabled > .list-cell {
+    -fx-text-fill: #5B5F58;
+    -fx-opacity: 1;
+}
+
+.date-picker:disabled > .text-field {
+    -fx-background-color: #ECE7DA;
+    -fx-text-fill: #5B5F58;
+    -fx-opacity: 1;
+}
+
+.date-picker:disabled > .arrow-button {
+    -fx-background-color: #ECE7DA;
+}
+
 /* ---------- Boutons : secondaire par défaut, principal en vert pharmacie ---------- */
 .button {
     -fx-background-color: transparent;
@@ -456,4 +529,31 @@
     -fx-font-size: 13px;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 0 10 0 10;
+}
+
+/* ---------- Statuts des rendez-vous : le libellé français est toujours affiché ---------- */
+.badge-statut {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 0;
+}
+
+.badge-planifie {
+    -fx-background-color: #E4ECF3;
+    -fx-text-fill: #1F4E79;
+}
+
+.badge-effectue {
+    -fx-background-color: #E3F0EA;
+    -fx-text-fill: #0B6B4D;
+}
+
+.badge-annule {
+    -fx-background-color: #ECE8DD;
+    -fx-text-fill: #6B6558;
+}
+
+.badge-annule > .text {
+    -fx-strikethrough: true;
 }
